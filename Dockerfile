@@ -1,17 +1,23 @@
-FROM node:14.4.0-buster
+# Use compatible node version
+FROM node:10
 
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies (package.json and package-lock.json)
-COPY package.json ./
-RUN npm install
-
-# Bundle app source (server.js)
+# Create workspace
+RUN mkdir /apic
+WORKDIR /apic
 COPY . .
 
-# Listen port
-EXPOSE 8080
+# Install debug tools
+RUN apt-get update && apt-get -y install mtr \
+nmap \
+netcat \
+iproute2 \
+dnsutils
 
-# Run Node.js
+# Install APIC
+RUN npm i -g apiconnect --unsafe
+
+# Expose port for APIC toolkit GUI
+EXPOSE 3000
+
+CMD ["echo", "apic toolkit container..."]
 CMD [ "node", "test.js" ]
