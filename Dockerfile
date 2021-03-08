@@ -8,12 +8,11 @@ COPY . .
 
 # Install debug tools
 RUN apt-get update && apt-get -y install mtr \
-nmap \
 netcat \
-iproute2 \
-dnsutils
+iproute2
 
 # Install APIC
+RUN npm install
 RUN npm i -g apiconnect --unsafe
 
 # Expose port for APIC toolkit GUI
