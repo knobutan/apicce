@@ -12,7 +12,6 @@ netcat \
 iproute2
 
 # Install APIC
-RUN npm install
 RUN npm i -g apiconnect --unsafe
 
 # Expose port for APIC toolkit GUI
