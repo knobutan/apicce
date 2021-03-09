@@ -7,15 +7,18 @@ WORKDIR /apic
 COPY . .
 
 # Install debug tools
-RUN apt-get update && apt-get -y install mtr \
-netcat \
-iproute2
+RUN apt-get update && apt-get install -y \
+  mtr \
+  netcat \
+  iproute2 \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install APIC
 RUN npm i -g apiconnect --unsafe
 
-# Expose port for APIC toolkit GUI
-EXPOSE 3000
+RUN npm install
 
-CMD ["echo", "apic toolkit container..."]
+# Expose port for APIC toolkit GUI
+EXPOSE 8080
+
 CMD [ "node", "test.js" ]
